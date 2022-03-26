@@ -20,15 +20,23 @@
 
     <tbody>
         <!-- perulangan datanya dari database -->
-        <?php foreach($data as $dt) { ?>
+      
+        <?php 
+            $no = 1;
+            foreach($data as $dt){
+        ?>
+            
         <tr>
+            <td><?php echo $no++ ?></td>
             <td><?php echo $dt['nim'] ?></td>
             <td><?php echo $dt['nama'] ?></td>
             <td><?php echo $dt['tanggal_lahir'] ?></td>
             <td>
-                
+                <!-- action -->
+                <a href="index.php?page=mahasiswa&action=edit&id=<?php echo $dt['id'] ?>" class="btn btn-success">Edit</a>
+                <a href="index.php?page=mahasiswa&action=delete&id=<?php echo $dt['id'] ?>" class="btn btn-danger">Hapus</a>
             </td>
         </tr>
-        <?php } ?>
+         <?php } ?>
     </tbody>
 </table>
