@@ -31,7 +31,7 @@
 
             $mysqli->close();
 
-            var_dump($hasil);
+            // var_dump($hasil);
             return $hasil;
         }
 
@@ -100,6 +100,19 @@
         // fungsi delete data
         public function delete($id)
         {
+            $db = new Database();
+
+            $mysqli = $db->koneksi();
+
+            $sql = " DELETE FROM mahasiswa WHERE id = '$id'  ";
+
+            $result = $mysqli->query($sql);
+
+            if($result == true) {
+                echo "<script> window.location.href = '?page=mahasiswa'; </script>";
+            } else {
+                echo "<script> window.location.href = '?page=mahasiswa'; </script>";
+            }
 
         }
     }

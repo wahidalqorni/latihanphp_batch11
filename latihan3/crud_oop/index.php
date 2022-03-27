@@ -25,6 +25,9 @@
                 <li class="nav-item">
                 <a class="nav-link" href="index.php?page=mahasiswa">Mahasiswa</a>
                 </li>
+                <li class="nav-item">
+                <a href="index.php?page=makananfavorite" class="nav-link">Makanan Favorite</a>
+                </li>
                 <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                     Dropdown
@@ -71,6 +74,14 @@
                         require_once 'views/mahasiswa/add.php';
                     } elseif($action == 'edit') {
                         require_once 'views/mahasiswa/edit.php';
+                    } elseif($action == 'delete') {
+                        require_once 'views/mahasiswa/delete.php';
+                    }
+                } elseif($page == 'makananfavorite') {
+                    if($action == '' ) {
+                        require_once 'views/makananfavorite/list.php';
+                    } elseif($action == 'add') {
+                        require_once 'views/makananfavorite/add.php';
                     }
                 }
             } else {
