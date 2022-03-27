@@ -82,6 +82,8 @@
                         require_once 'views/makananfavorite/list.php';
                     } elseif($action == 'add') {
                         require_once 'views/makananfavorite/add.php';
+                    } elseif($action == 'edit') {
+                        require_once 'views/makananfavorite/edit.php';
                     }
                 }
             } else {
