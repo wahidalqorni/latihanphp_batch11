@@ -3,6 +3,7 @@
 
     $mahasiswa = new Mahasiswa();
 
+    // panggil fungsi untuk menampilkan data
     $data = $mahasiswa->listMahasiswa();
 ?>
 <h1>Daftar Mahasiswa</h1>
@@ -19,8 +20,8 @@
     </thead>
 
     <tbody>
+        <a href="index.php?page=mahasiswa&action=add" class="btn btn-primary" >Tambah Data</a>
         <!-- perulangan datanya dari database -->
-      
         <?php 
             $no = 1;
             foreach($data as $dt){

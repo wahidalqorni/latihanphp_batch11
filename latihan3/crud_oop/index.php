@@ -19,6 +19,7 @@
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
                     <!-- anchor | methodnya GET -->
+                    <!-- anchor -->
                 <a class="nav-link active" aria-current="page" href="index.php?page=home">Home</a>
                 </li>
                 <li class="nav-item">

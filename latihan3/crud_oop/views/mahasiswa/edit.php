@@ -1,17 +1,25 @@
 <?php
     require_once 'controllers/Mahasiswa.php';
 
+    // id yg dibawa dari views/mahasiswa/list.php
     $id = $_GET['id'];
+
     // buat object dari class Mahasiswa
     $mahasiswa = new Mahasiswa();
-    $data = $mahasiswa->mahasiswaById($id);
 
+    // panggil fungsi di controller mahasiswa yg berfungsi untuk menampilkan data berdasarkan 
+    // mahasiswa yg dipilih
+    $data = $mahasiswa->mahasiswaById($id);
+    
+    // fungsi update data ke database
     if(isset($_POST['proses'])) {
+      // /data yg akan dikirim ke fungsi update yg ada di controller mahasiswa
         $id = $_POST['id'];
         $nim = $_POST['nim'];
         $nama = $_POST['nama'];
         $tanggal_lahir = $_POST['tanggal_lahir'];
 
+        // panggil fungsi update beserta parameternya
         $mahasiswa->update($id, $nama, $nim, $tanggal_lahir);
     }
 

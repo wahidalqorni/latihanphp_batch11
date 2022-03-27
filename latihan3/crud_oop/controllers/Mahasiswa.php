@@ -31,6 +31,7 @@
 
             $mysqli->close();
 
+            var_dump($hasil);
             return $hasil;
         }
 
@@ -54,6 +55,22 @@
 
         // fungsi menginsert data ke database
         public function insert($nama, $nim, $tanggal_lahir){
+            $db = new Database();
+
+            $mysqli = $db->koneksi();
+
+            $nama_input = $mysqli->real_escape_string($nama); 
+            $nim_input = $mysqli->real_escape_string($nim);
+
+            $sql = "INSERT INTO mahasiswa (nama, nim, tanggal_lahir) VALUES ('$nama_input', '$nim_input', '$tanggal_lahir' ) ";
+
+            $result = $mysqli->query($sql);
+            
+            if($result == true) {
+                echo "<script> window.location.href = '?page=mahasiswa'; </script>";
+            } else {
+                echo "<script> window.location.href = '?page=mahasiswa&action=add'; </script>";
+            }
 
         }
 
@@ -64,15 +81,15 @@
 
             $mysqli = $db->koneksi();
 
-            $nama = $mysqli->real_escape_string($nama); 
-            $nim = $mysqli->real_escape_string($nim);  
+            $nama_input = $mysqli->real_escape_string($nama); 
+            $nim_input = $mysqli->real_escape_string($nim);  
 
-            $sql= "UPDATE mahasiswa SET nama = '$nama', nim = '$nim', tanggal_lahir = '$tanggal_lahir' WHERE id = '$id'  ";
+            $sql= "UPDATE mahasiswa SET nama = '$nama_input', nim = '$nim_input', tanggal_lahir = '$tanggal_lahir' WHERE id = '$id'  ";
 
             // untuk mengeksekusi fungsi query dr mysql
             $result= $mysqli->query($sql);
 
-            if($result) {
+            if($result == true) {
                 echo "<script> window.location.href = '?page=mahasiswa'; </script>";
             } else {
                 echo "<script> window.location.href = '?page=mahasiswa&action=edit'; </script>";
