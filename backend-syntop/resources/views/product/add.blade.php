@@ -19,26 +19,41 @@
                             @csrf
                             <div class="form-group">
                                 <label for="exampleInputName1">Merk</label>
-                                <select name="merk_id" class="form-control">
+                                <select name="merk_id" class="form-control @error('merk_id') is-invalid @enderror">
                                     <option value="">--Pilih--</option>
                                     @foreach ($merk as $mrk)
                                         <option value="{{ $mrk->id }}">{{ $mrk->merk_product }}</option>
                                     @endforeach
                                 </select>
+                                @error('merk_id')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
                             </div>
                             <div class="form-group">
                                 <label for="exampleInputEmail3">Nama</label>
-                                <input type="text" class="form-control" id="exampleInputEmail3" name="nama_product"
-                                    placeholder="Nama">
+                                <input type="text" class="form-control @error('nama_product') is-invalid @enderror" id="exampleInputEmail3" name="nama_product"
+                                    placeholder="Nama" value="{{ old('nama_product') }}">
+                                    @error('nama_product')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                    @enderror
                             </div>
                             <div class="form-group">
                                 <label for="exampleInputHarga4">Harga</label>
-                                <input type="number" class="form-control" name="harga" id="exampleInputHarga4"
+                                <input type="number" class="form-control @error('harga') is-invalid @enderror" name="harga" id="exampleInputHarga4"
                                     placeholder="Harga">
+                                    @error('harga')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                    @enderror
                             </div>
                             <div class="form-group">
                                 <label>Gambar</label>
-                                <input type="file" name="gambar" class="file-upload-default">
+                                <input type="file" name="gambar" class="file-upload-default @error('gambar') is-invalid @enderror">
                                 <div class="input-group col-xs-12">
                                     <input type="text" class="form-control file-upload-info" disabled
                                         placeholder="Upload Image">
@@ -46,6 +61,11 @@
                                         <button class="file-upload-browse btn btn-primary" type="button">Upload</button>
                                     </span>
                                 </div>
+                                @error('gambar')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
                             </div>
                             <div class="form-group">
                                 <label for="exampleInputSpesifikasi4">Spesifikasi</label>

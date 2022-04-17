@@ -27,6 +27,14 @@ class ProductController extends Controller
 
     public function store(Request $request)
     {
+        // validasi data
+        $request->validate([
+            'merk_id' => 'required',
+            'nama_product' => 'required|min:5',
+            'harga' => 'required',
+            'gambar' => 'required|image|file|max:2048' // 1mb = 1024kb, 2mb = 2048kb
+        ]);
+
         // dd($request->all());
         try {
             //tentukan folder penyimpanan gambarnya
