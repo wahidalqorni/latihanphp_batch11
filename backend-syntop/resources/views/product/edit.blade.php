@@ -67,4 +67,7 @@
             </div>
         </div>
     </div>
+    @push('script')
+        <script src="{{ asset('admin-template/js/file-upload.js') }}"></script>
+    @endpush
 @endsection

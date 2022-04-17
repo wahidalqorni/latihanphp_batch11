@@ -6,6 +6,7 @@ use App\Models\Merk;
 use App\Models\Product;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
@@ -57,6 +58,74 @@ class ProductController extends Controller
         // ambil data product berdasarkan id yg dipilih
         $data = Product::find($id);
         return view('product.edit', compact('merk','data') );
+    }
+
+    public function update(Request $request)
+    {
+        try {
+            // ambil data produk yg dipilih berdasarkan id
+            $product = Product::find($request->id);
+
+            // cek apakah user mengupload gambar atau tidak
+            if($request->file('gambar')) {
+
+                // cek apakah field gambar pd tabel products ada isinya atau tidak
+                // kalau ada
+                if($product->gambar){
+                    // delete terlebih dahulu gambar lama
+                    Storage::delete($product->gambar);
+
+                    // upload file yg baru
+                    $pathGambar = $request->file('gambar')->store('product-images');
+                } else {
+                    // kalau tidak ada
+                    // upload file yg baru
+                    $pathGambar = $request->file('gambar')->store('product-images');
+                }
+
+            } else {
+                $pathGambar = $product->gambar;
+            }
+
+            // proses update data products
+            Product::where('id', $request->id)->update([
+                'merk_id' => $request->merk_id,
+                'nama_product' => $request->nama_product,
+                'harga' => $request->harga,
+                'gambar' => $pathGambar,
+                'spesifikasi' => $request->spesifikasi,
+                'status' => $request->status
+            ]);
+
+            return redirect('product');
+
+        } catch (Exception $error) {
+            return redirect()->back()->with([
+                'failed' => $error->getMessage()
+            ]);
+        }
+    }
+
+    public function delete($id)
+    {
+        try {
+             // ambil data produk yg dipilih berdasarkan id
+             $product = Product::find($id);
+
+             if($product->gambar) {
+                // hapus dulu file gambarnya
+                Storage::delete($product->gambar);
+             }
+             
+             // hapus data product yg dipilih
+             Product::destroy($id);  
+             
+             return redirect('product');
+        } catch (Exception $error) {
+            return redirect()->back()->with([
+                'failed' => $error->getMessage()
+            ]);
+        }
     }
 
 

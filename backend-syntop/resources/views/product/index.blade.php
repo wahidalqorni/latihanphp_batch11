@@ -45,7 +45,7 @@
                                             <td>{{ $product->nama_product }}</td>
                                             <td>{{ $product->harga }}</td>
                                             <td>
-                                                <img src="" alt="" srcset="">
+                                                <img src="{{ asset('storage/'. $product->gambar ) }}" width="500" srcset="">
                                             </td>
                                             <td>
                                                 {{ $product->spesifikasi }}
