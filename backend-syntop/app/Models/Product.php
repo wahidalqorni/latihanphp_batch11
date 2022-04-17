@@ -10,4 +10,10 @@ class Product extends Model
     use HasFactory;
 
     protected $guarded = ['id'];
+
+    // menghubungkan tabel products dengan tabel merks
+    public function merk()
+    {
+        return $this->belongsTo(Merk::class, 'merk_id','id');
+    }
 }
