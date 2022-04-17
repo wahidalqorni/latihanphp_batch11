@@ -37,10 +37,10 @@
                                             <td>{{ $loop->index + 1 }}</td>
                                             <td>{{ $user->name }}</td>
                                             <td>{{ $user->email }}</td>
-                                            <td>{{ $user->role }}</td>
+                                            <td>{{ $user->role == '1' ? 'Admin' : 'Kasir' }}</td>
                                             <td>
                                                 <a href="{{ route('edit-user', $user->id ) }}" class="btn btn-sm btn-success">Edit</a>
-                                                <a href="{{ route('delete-user', $user->id ) }}" class="btn btn-sm btn-danger">Hapus</a>
+                                                <a href="{{ route('delete-user', $user->id ) }}" class="btn btn-sm btn-danger" onclick="return confirm('Yakin hapus data ini?')">Hapus</a>
                                             </td>
                                         </tr>
                                     @endforeach

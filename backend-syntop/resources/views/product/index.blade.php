@@ -33,6 +33,9 @@
                                             Spesifikasi
                                         </th>
                                         <th>
+                                            Status
+                                        </th>
+                                        <th>
                                             Action
                                         </th>
                                     </tr>
@@ -45,14 +48,19 @@
                                             <td>{{ $product->nama_product }}</td>
                                             <td>{{ $product->harga }}</td>
                                             <td>
-                                                <img src="{{ asset('storage/'. $product->gambar ) }}" width="500" srcset="">
+                                                <img src="{{ asset('storage/' . $product->gambar) }}" width="500"
+                                                    srcset="">
                                             </td>
                                             <td>
                                                 {{ $product->spesifikasi }}
                                             </td>
+                                            <td>{{ $product->status == '1' ? 'Publish' : 'Unpublish' }}</td>
                                             <td>
-                                                <a href="{{ route('edit-product', $product->id ) }}" class="btn btn-sm btn-success">Edit</a>
-                                                <a href="{{ route('delete-product', $product->id ) }}" class="btn btn-sm btn-danger" onclick="return confirm('Yakin hapus data ini?')">Hapus</a>
+                                                <a href="{{ route('edit-product', $product->id) }}"
+                                                    class="btn btn-sm btn-success">Edit</a>
+                                                <a href="{{ route('delete-product', $product->id) }}"
+                                                    class="btn btn-sm btn-danger"
+                                                    onclick="return confirm('Yakin hapus data ini?')">Hapus</a>
                                             </td>
                                         </tr>
                                     @endforeach
