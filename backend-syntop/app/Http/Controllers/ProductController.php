@@ -49,4 +49,15 @@ class ProductController extends Controller
         }
     }
 
+    public function edit($id)
+    {
+        // ambil data dari tabel merk
+        $merk = Merk::orderBy('merk_product','ASC')->get();
+
+        // ambil data product berdasarkan id yg dipilih
+        $data = Product::find($id);
+        return view('product.edit', compact('merk','data') );
+    }
+
+
 }

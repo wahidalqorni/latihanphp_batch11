@@ -14,31 +14,53 @@
                         @if (Session::get('failed'))
                             <div class="alert alert-warning">{{ Session::get('failed') }}</div>
                         @endif
-                        <form class="forms-sample" action="{{ route('update-user') }}" method="POST">
+                        <form class="forms-sample" action="{{ route('update-product') }}" method="POST" enctype="multipart/form-data">
                             @csrf
                             <input type="hidden" name="id" value="{{ $data->id }}">
                             <div class="form-group">
-                                <label for="exampleInputName1">Name</label>
-                                <input type="text" class="form-control" id="exampleInputName1" name="name" value="{{ $data->name }}" placeholder="Name">
+                                <label for="exampleInputName1">Merk</label>
+                                <select name="merk_id" class="form-control">
+                                    <option value="">--Pilih--</option>
+                                    @foreach ($merk as $mrk)
+                                        <option value="{{ $mrk->id }}" @if($data->merk_id == $mrk->id) {{ 'selected' }} @endif >{{ $mrk->merk_product }}</option>
+                                    @endforeach
+                                </select>
                             </div>
                             <div class="form-group">
-                                <label for="exampleInputEmail3">Email address</label>
-                                <input type="email" class="form-control" id="exampleInputEmail3" name="email" value="{{ $data->email }}" placeholder="Email" disabled>
+                                <label for="exampleInputEmail3">Nama</label>
+                                <input type="text" class="form-control" id="exampleInputEmail3" name="nama_product"
+                                    placeholder="Nama" value="{{ $data->nama_product }}">
                             </div>
                             <div class="form-group">
-                                <label for="exampleInputPassword4">Password</label>
-                                <input type="password" class="form-control" name="password" id="exampleInputPassword4"
-                                    placeholder="Password">
+                                <label for="exampleInputHarga4">Harga</label>
+                                <input type="number" class="form-control" name="harga" id="exampleInputHarga4"
+                                    placeholder="Harga" value="{{ $data->harga }}">
                             </div>
                             <div class="form-group">
-                                <label for="exampleSelectGender">Role</label>
-                                <select class="form-control" id="exampleSelectGender" name="role">
-                                    <option value="1" @if($data->role == '1') {{ 'selected' }}  @endif >Admin</option>
-                                    <option value="2" @if($data->role == '2') {{ 'selected' }}  @endif>Kasir</option>
+                                <label>Gambar</label>
+                                <input type="file" name="gambar" class="file-upload-default">
+                                <div class="input-group col-xs-12">
+                                    <input type="text" class="form-control file-upload-info" disabled
+                                        placeholder="Upload Image">
+                                    <span class="input-group-append">
+                                        <button class="file-upload-browse btn btn-primary" type="button">Upload</button>
+                                    </span>
+                                </div>
+                                <img src="{{ asset('storage/'. $data->gambar ) }}" width="300px" srcset="">
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputSpesifikasi4">Spesifikasi</label>
+                                <textarea name="spesifikasi" class="form-control" id="" cols="30" rows="10">{{ $data->spesifikasi }}</textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleSelectGender">Status</label>
+                                <select class="form-control" id="exampleSelectGender" name="status">
+                                    <option value="0" @if($data->status == '0') {{ 'selected' }} @endif >Unpublish</option>
+                                    <option value="1" @if($data->status == '1') {{ 'selected' }} @endif>Publish</option>
                                 </select>
                             </div>
                             <button type="submit" class="btn btn-primary me-2">Submit</button>
-                            <a href="{{ route('user') }}" class="btn btn-light">Cancel</a>
+                            <a href="{{ route('product') }}" class="btn btn-light">Cancel</a>
                         </form>
                     </div>
                 </div>
