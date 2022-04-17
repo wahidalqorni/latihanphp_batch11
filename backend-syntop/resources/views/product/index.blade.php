@@ -52,7 +52,7 @@
                                             </td>
                                             <td>
                                                 <a href="{{ route('edit-product', $product->id ) }}" class="btn btn-sm btn-success">Edit</a>
-                                                <a href="{{ route('delete-product', $product->id ) }}" class="btn btn-sm btn-danger">Hapus</a>
+                                                <a href="{{ route('delete-product', $product->id ) }}" class="btn btn-sm btn-danger" onclick="return confirm('Yakin hapus data ini?')">Hapus</a>
                                             </td>
                                         </tr>
                                     @endforeach

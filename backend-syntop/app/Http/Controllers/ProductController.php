@@ -14,15 +14,15 @@ class ProductController extends Controller
     {
         $data = Product::all();
 
-        return view('product.index', compact('data') );
+        return view('product.index', compact('data'));
     }
 
     public function add()
     {
         // ambil data dari tabel merk utk ditampilkan di form tambah product
-        $merk = Merk::orderBy('merk_product','ASC')->get();
+        $merk = Merk::orderBy('merk_product', 'ASC')->get();
 
-        return view('product.add', compact('merk') );
+        return view('product.add', compact('merk'));
     }
 
     public function store(Request $request)
@@ -39,25 +39,27 @@ class ProductController extends Controller
                 'harga' => $request->harga,
                 'gambar' => $pathGambar,
                 'spesifikasi' => $request->spesifikasi,
-                'status' => $request->status
+                'status' => $request->status,
             ]);
 
             return redirect('product');
         } catch (Exception $error) {
-            return redirect()->back()->with([
-                'failed' => $error->getMessage()
-            ]);
+            return redirect()
+                ->back()
+                ->with([
+                    'failed' => $error->getMessage(),
+                ]);
         }
     }
 
     public function edit($id)
     {
         // ambil data dari tabel merk
-        $merk = Merk::orderBy('merk_product','ASC')->get();
+        $merk = Merk::orderBy('merk_product', 'ASC')->get();
 
         // ambil data product berdasarkan id yg dipilih
         $data = Product::find($id);
-        return view('product.edit', compact('merk','data') );
+        return view('product.edit', compact('merk', 'data'));
     }
 
     public function update(Request $request)
@@ -67,22 +69,24 @@ class ProductController extends Controller
             $product = Product::find($request->id);
 
             // cek apakah user mengupload gambar atau tidak
-            if($request->file('gambar')) {
-
+            if ($request->file('gambar')) {
                 // cek apakah field gambar pd tabel products ada isinya atau tidak
                 // kalau ada
-                if($product->gambar){
+                if ($product->gambar) {
                     // delete terlebih dahulu gambar lama
                     Storage::delete($product->gambar);
 
                     // upload file yg baru
-                    $pathGambar = $request->file('gambar')->store('product-images');
+                    $pathGambar = $request
+                        ->file('gambar')
+                        ->store('product-images');
                 } else {
                     // kalau tidak ada
                     // upload file yg baru
-                    $pathGambar = $request->file('gambar')->store('product-images');
+                    $pathGambar = $request
+                        ->file('gambar')
+                        ->store('product-images');
                 }
-
             } else {
                 $pathGambar = $product->gambar;
             }
@@ -94,39 +98,40 @@ class ProductController extends Controller
                 'harga' => $request->harga,
                 'gambar' => $pathGambar,
                 'spesifikasi' => $request->spesifikasi,
-                'status' => $request->status
+                'status' => $request->status,
             ]);
 
             return redirect('product');
-
         } catch (Exception $error) {
-            return redirect()->back()->with([
-                'failed' => $error->getMessage()
-            ]);
+            return redirect()
+                ->back()
+                ->with([
+                    'failed' => $error->getMessage(),
+                ]);
         }
     }
 
     public function delete($id)
     {
         try {
-             // ambil data produk yg dipilih berdasarkan id
-             $product = Product::find($id);
+            // ambil data produk yg dipilih berdasarkan id
+            $product = Product::find($id);
 
-             if($product->gambar) {
+            if ($product->gambar) {
                 // hapus dulu file gambarnya
                 Storage::delete($product->gambar);
-             }
-             
-             // hapus data product yg dipilih
-             Product::destroy($id);  
-             
-             return redirect('product');
+            }
+
+            // hapus data product yg dipilih
+            Product::destroy($id);
+
+            return redirect('product');
         } catch (Exception $error) {
-            return redirect()->back()->with([
-                'failed' => $error->getMessage()
-            ]);
+            return redirect()
+                ->back()
+                ->with([
+                    'failed' => $error->getMessage(),
+                ]);
         }
     }
-
-
 }
