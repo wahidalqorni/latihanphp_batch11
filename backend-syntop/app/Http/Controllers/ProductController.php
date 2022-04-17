@@ -30,7 +30,7 @@ class ProductController extends Controller
         // validasi data
         $request->validate([
             'merk_id' => 'required',
-            'nama_product' => 'required|min:5',
+            'nama_product' => 'required|min:5|unique:products',
             'harga' => 'required',
             'gambar' => 'required|image|file|max:2048' // 1mb = 1024kb, 2mb = 2048kb
         ]);

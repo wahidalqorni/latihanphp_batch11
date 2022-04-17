@@ -22,38 +22,40 @@
                                 <select name="merk_id" class="form-control @error('merk_id') is-invalid @enderror">
                                     <option value="">--Pilih--</option>
                                     @foreach ($merk as $mrk)
-                                        <option value="{{ $mrk->id }}">{{ $mrk->merk_product }}</option>
+                                        <option {{ old('merk_id') == $mrk->id ? "selected" : "" }} value="{{ $mrk->id }}">{{ $mrk->merk_product }}</option>
                                     @endforeach
                                 </select>
                                 @error('merk_id')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
                                 @enderror
                             </div>
                             <div class="form-group">
                                 <label for="exampleInputEmail3">Nama</label>
-                                <input type="text" class="form-control @error('nama_product') is-invalid @enderror" id="exampleInputEmail3" name="nama_product"
-                                    placeholder="Nama" value="{{ old('nama_product') }}">
-                                    @error('nama_product')
+                                <input type="text" class="form-control @error('nama_product') is-invalid @enderror"
+                                    id="exampleInputEmail3" name="nama_product" placeholder="Nama"
+                                    value="{{ old('nama_product') }}">
+                                @error('nama_product')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
-                                    @enderror
+                                @enderror
                             </div>
                             <div class="form-group">
                                 <label for="exampleInputHarga4">Harga</label>
-                                <input type="number" class="form-control @error('harga') is-invalid @enderror" name="harga" id="exampleInputHarga4"
-                                    placeholder="Harga">
-                                    @error('harga')
+                                <input type="number" class="form-control @error('harga') is-invalid @enderror" name="harga"
+                                    id="exampleInputHarga4" placeholder="Harga">
+                                @error('harga')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
-                                    @enderror
+                                @enderror
                             </div>
                             <div class="form-group">
                                 <label>Gambar</label>
-                                <input type="file" name="gambar" class="file-upload-default @error('gambar') is-invalid @enderror">
+                                <input type="file" name="gambar"
+                                    class="file-upload-default @error('gambar') is-invalid @enderror">
                                 <div class="input-group col-xs-12">
                                     <input type="text" class="form-control file-upload-info" disabled
                                         placeholder="Upload Image">
@@ -62,9 +64,9 @@
                                     </span>
                                 </div>
                                 @error('gambar')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
                                 @enderror
                             </div>
                             <div class="form-group">
