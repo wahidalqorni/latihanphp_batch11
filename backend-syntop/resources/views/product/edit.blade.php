@@ -50,7 +50,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="exampleInputSpesifikasi4">Spesifikasi</label>
-                                <textarea name="spesifikasi" class="form-control" id="" cols="30" rows="10">{{ $data->spesifikasi }}</textarea>
+                                <textarea name="spesifikasi" class="form-control" id="editor" cols="30" rows="10">{{ $data->spesifikasi }}</textarea>
                             </div>
                             <div class="form-group">
                                 <label for="exampleSelectGender">Status</label>
@@ -68,6 +68,15 @@
         </div>
     </div>
     @push('script')
+    <script src="https://cdn.ckeditor.com/ckeditor5/34.0.0/classic/ckeditor.js"></script>
+
+    <script>
+        ClassicEditor
+            .create( document.querySelector( '#editor' ) )
+            .catch( error => {
+                console.error( error );
+            } );
+    </script>
         <script src="{{ asset('admin-template/js/file-upload.js') }}"></script>
     @endpush
 @endsection

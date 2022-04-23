@@ -11,7 +11,7 @@
                             <a href="{{ route('add-product') }}" class="btn btn-sm btn-primary">Tambah</a>
                         </p>
                         <div class="table-responsive pt-3">
-                            <table class="table table-bordered">
+                            <table class="table table-bordered" id="myTable">
                                 <thead>
                                     <tr>
                                         <th>
@@ -52,7 +52,7 @@
                                                     srcset="">
                                             </td>
                                             <td>
-                                                {{ $product->spesifikasi }}
+                                                <?php echo htmlspecialchars_decode($product->spesifikasi) ?>
                                             </td>
                                             <td>{{ $product->status == '1' ? 'Publish' : 'Unpublish' }}</td>
                                             <td>
