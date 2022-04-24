@@ -36,6 +36,9 @@
                                             Status
                                         </th>
                                         <th>
+                                            Recomended
+                                        </th>
+                                        <th>
                                             Action
                                         </th>
                                     </tr>
@@ -48,13 +51,16 @@
                                             <td>{{ $product->nama_product }}</td>
                                             <td>{{ $product->harga }}</td>
                                             <td>
-                                                <img src="{{ asset('storage/' . $product->gambar) }}" width="500"
+                                                {{-- <img src="{{ asset('storage/' . $product->gambar) }}" width="500"
+                                                    srcset=""> --}}
+                                                <img src="{{ $product->gambar }}" width="500"
                                                     srcset="">
                                             </td>
                                             <td>
                                                 <?php echo htmlspecialchars_decode($product->spesifikasi) ?>
                                             </td>
                                             <td>{{ $product->status == '1' ? 'Publish' : 'Unpublish' }}</td>
+                                            <td>{{ $product->rekomendasi == '1' ? 'Yes' : 'No' }}</td>
                                             <td>
                                                 <a href="{{ route('edit-product', $product->id) }}"
                                                     class="btn btn-sm btn-success">Edit</a>

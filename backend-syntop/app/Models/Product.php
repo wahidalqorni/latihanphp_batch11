@@ -16,4 +16,10 @@ class Product extends Model
     {
         return $this->belongsTo(Merk::class, 'merk_id','id');
     }
+
+    // menampilkan data gambar beserta link akses filenya
+    public function getGambarAttribute($value)
+    {
+        return url(\Storage::url($value));
+    }
 }

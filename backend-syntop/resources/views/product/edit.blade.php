@@ -46,7 +46,8 @@
                                         <button class="file-upload-browse btn btn-primary" type="button">Upload</button>
                                     </span>
                                 </div>
-                                <img src="{{ asset('storage/'. $data->gambar ) }}" width="300px" srcset="">
+                                {{-- <img src="{{ asset('storage/'. $data->gambar ) }}" width="300px" srcset=""> --}}
+                                <img src="{{  $data->gambar  }}" width="300px" srcset="">
                             </div>
                             <div class="form-group">
                                 <label for="exampleInputSpesifikasi4">Spesifikasi</label>
@@ -57,6 +58,13 @@
                                 <select class="form-control" id="exampleSelectGender" name="status">
                                     <option value="0" @if($data->status == '0') {{ 'selected' }} @endif >Unpublish</option>
                                     <option value="1" @if($data->status == '1') {{ 'selected' }} @endif>Publish</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleSelectGender">Recomended?</label>
+                                <select class="form-control" id="exampleSelectGender" name="rekomendasi">
+                                    <option value="0" @if($data->rekomendasi == '0') {{ 'selected' }} @endif >No</option>
+                                    <option value="1" @if($data->rekomendasi == '1') {{ 'selected' }} @endif>Yes</option>
                                 </select>
                             </div>
                             <button type="submit" class="btn btn-primary me-2">Submit</button>

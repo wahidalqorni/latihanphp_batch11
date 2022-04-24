@@ -17,3 +17,9 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::get('/product-rekomendasi', [App\Http\Controllers\Api\ApiProductController::class, 'getRekomendasi']);
+Route::get('/product-list', [App\Http\Controllers\Api\ApiProductController::class, 'getAllProduct']);
+Route::get('/product-search', [App\Http\Controllers\Api\ApiProductController::class, 'searchProduct']);
+
+Route::post('/keranjang-post', [App\Http\Controllers\Api\ApiKeranjangController::class, 'postKeranjang']);

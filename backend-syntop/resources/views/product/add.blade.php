@@ -80,6 +80,13 @@
                                     <option value="1">Publish</option>
                                 </select>
                             </div>
+                            <div class="form-group">
+                                <label for="exampleSelectGender">Recomended?</label>
+                                <select class="form-control" id="exampleSelectGender" name="rekomendasi">
+                                    <option value="0">No</option>
+                                    <option value="1">Yes</option>
+                                </select>
+                            </div>
                             <button type="submit" class="btn btn-primary me-2">Submit</button>
                             <a href="{{ route('product') }}" class="btn btn-light">Cancel</a>
                         </form>

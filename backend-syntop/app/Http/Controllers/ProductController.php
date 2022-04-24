@@ -32,6 +32,7 @@ class ProductController extends Controller
             'merk_id' => 'required',
             'nama_product' => 'required|min:5|unique:products',
             'harga' => 'required',
+            'rekomendasi' => 'required',
             'gambar' => 'required|image|file|max:2048' // 1mb = 1024kb, 2mb = 2048kb
         ]);
 
@@ -48,6 +49,7 @@ class ProductController extends Controller
                 'gambar' => $pathGambar,
                 'spesifikasi' => $request->spesifikasi,
                 'status' => $request->status,
+                'rekomendasi' => $request->rekomendasi
             ]);
 
             return redirect('product');
@@ -107,6 +109,7 @@ class ProductController extends Controller
                 'gambar' => $pathGambar,
                 'spesifikasi' => $request->spesifikasi,
                 'status' => $request->status,
+                'rekomendasi' => $request->rekomendasi
             ]);
 
             return redirect('product');
