@@ -7,12 +7,26 @@ use App\Models\Keranjang;
 use App\Models\Product;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ApiKeranjangController extends Controller
 {
     public function getAllKeranjang()
     {
-        # code...
+        $data = DB::table('keranjangs')
+                ->join('products', 'products.id','keranjangs.product_id')
+                ->join('merks', 'merks.id', 'products.merk_id' )
+                ->select(DB::raw(
+                    'keranjangs.*, products.nama_product, products.harga as harga_satuan, merks.merk_product'
+                ))
+                ->where('keranjangs.status','0')
+                ->get();
+                
+        return response()->json([
+            'success' => true,
+            'message' => 'Data berhasil diload',
+            'data' => $data
+        ]);
     }
 
     public function postKeranjang(Request $request)

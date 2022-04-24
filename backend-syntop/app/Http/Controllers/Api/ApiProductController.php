@@ -85,11 +85,11 @@ class ApiProductController extends Controller
         $keyword = $request->keyword;
 
         $data = Product::with(['merk'])
-            ->where('status', '1')
+            ->where('status', '1') // seleksi tabel products yg statusny = '1' atau publish
             ->where('nama_product', 'like', '%' . $keyword . '%')
             ->orWhereRelation(
-                'merk',
-                'merk_product',
+                'merk', // fungsi yg direlasikan (belongsTo) -> cek di App\Models\Product
+                'merk_product', // ambil field yg ingin di seleksi
                 'like',
                 '%' . $keyword . '%'
             )
