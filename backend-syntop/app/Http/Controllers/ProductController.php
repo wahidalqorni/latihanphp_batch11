@@ -33,7 +33,7 @@ class ProductController extends Controller
             'nama_product' => 'required|min:5|unique:products',
             'harga' => 'required',
             'rekomendasi' => 'required',
-            'gambar' => 'required|image|file|max:2048' // 1mb = 1024kb, 2mb = 2048kb
+            'gambar' => 'required|image|file|max:2048', // 1mb = 1024kb, 2mb = 2048kb
         ]);
 
         // dd($request->all());
@@ -49,7 +49,7 @@ class ProductController extends Controller
                 'gambar' => $pathGambar,
                 'spesifikasi' => $request->spesifikasi,
                 'status' => $request->status,
-                'rekomendasi' => $request->rekomendasi
+                'rekomendasi' => $request->rekomendasi,
             ]);
 
             return redirect('product');
@@ -77,40 +77,42 @@ class ProductController extends Controller
         try {
             // ambil data produk yg dipilih berdasarkan id
             $product = Product::find($request->id);
-
+         
             // cek apakah user mengupload gambar atau tidak
             if ($request->file('gambar')) {
+
                 // cek apakah field gambar pd tabel products ada isinya atau tidak
                 // kalau ada
                 if ($product->gambar) {
                     // delete terlebih dahulu gambar lama
                     Storage::delete($product->gambar);
+                } 
 
-                    // upload file yg baru
-                    $pathGambar = $request
-                        ->file('gambar')
-                        ->store('product-images');
-                } else {
-                    // kalau tidak ada
-                    // upload file yg baru
-                    $pathGambar = $request
-                        ->file('gambar')
-                        ->store('product-images');
-                }
+                // upload file yg baru
+                $pathGambar = $request
+                    ->file('gambar')
+                    ->store('product-images');
+
+                // proses update data products
+                Product::where('id', $request->id)->update([
+                    'merk_id' => $request->merk_id,
+                    'nama_product' => $request->nama_product,
+                    'harga' => $request->harga,
+                    'gambar' => $pathGambar,
+                    'spesifikasi' => $request->spesifikasi,
+                    'status' => $request->status,
+                    'rekomendasi' => $request->rekomendasi,
+                ]);
             } else {
-                $pathGambar = $product->gambar;
+                Product::where('id', $request->id)->update([
+                    'merk_id' => $request->merk_id,
+                    'nama_product' => $request->nama_product,
+                    'harga' => $request->harga,
+                    'spesifikasi' => $request->spesifikasi,
+                    'status' => $request->status,
+                    'rekomendasi' => $request->rekomendasi,
+                ]);
             }
-
-            // proses update data products
-            Product::where('id', $request->id)->update([
-                'merk_id' => $request->merk_id,
-                'nama_product' => $request->nama_product,
-                'harga' => $request->harga,
-                'gambar' => $pathGambar,
-                'spesifikasi' => $request->spesifikasi,
-                'status' => $request->status,
-                'rekomendasi' => $request->rekomendasi
-            ]);
 
             return redirect('product');
         } catch (Exception $error) {

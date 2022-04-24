@@ -21,10 +21,18 @@ class ApiKeranjangController extends Controller
                 ))
                 ->where('keranjangs.status','0')
                 ->get();
+
+        $grandTotal = DB::table('keranjangs')
+                      ->select(DB::raw(
+                          'SUM(totalharga) as grandtotal'
+                      ))
+                      ->where('status','0')
+                      ->first();
                 
         return response()->json([
             'success' => true,
             'message' => 'Data berhasil diload',
+            'grandtotal' => $grandTotal->grandtotal,
             'data' => $data
         ]);
     }
@@ -94,4 +102,33 @@ class ApiKeranjangController extends Controller
             ], 500);
         }
     }
+
+    public function deleteKeranjang(Request $request)
+    {
+        $id = $request->id;
+
+        try {
+            $delete = Keranjang::destroy($id);
+            if($delete) {
+                return response()->json([
+                    'success' => true,
+                    'message' => 'Data berhasil dihapus!',
+                    'data'    => []
+                ], 200 );
+            } else {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Data gagal dihapus!',
+                    'data'    => []
+                ], 500 );
+            }
+        } catch (Exception $error) {
+            return response()->json([
+                'success' => false,
+                'message' => $error->getMessage(),
+                'data'    => []
+            ], 500 );
+        }
+    }
+    
 }
