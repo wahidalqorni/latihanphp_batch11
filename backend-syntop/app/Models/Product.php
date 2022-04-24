@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
 
 class Product extends Model
 {
@@ -20,6 +21,6 @@ class Product extends Model
     // menampilkan data gambar beserta link akses filenya
     public function getGambarAttribute($value)
     {
-        return url(\Storage::url($value));
+        return url(Storage::url($value));
     }
 }

@@ -20,11 +20,14 @@ class ApiProductController extends Controller
 
         // tampilkan responsenya
         // menggunakan format json
-        return response()->json([
-            'success' => true,
-            'message' => 'Data berhasil diload',
-            'data' => $data,
-        ], 200);
+        return response()->json(
+            [
+                'success' => true,
+                'message' => 'Data berhasil diload',
+                'data' => $data,
+            ],
+            200
+        );
     }
 
     public function getAllProduct()
@@ -36,11 +39,45 @@ class ApiProductController extends Controller
 
         // tampilkan responsenya
         // menggunakan format json
-        return response()->json([
-            'success' => true,
-            'message' => 'Data berhasil diload',
-            'data' => $data,
-        ], 200);
+        return response()->json(
+            [
+                'success' => true,
+                'message' => 'Data berhasil diload',
+                'data' => $data,
+            ],
+            200
+        );
+    }
+
+    public function detailProduct($id)
+    {
+        $data = Product::with(['merk'])
+            ->where('id', $id)
+            ->first();
+        
+        if($data) {
+            // tampilkan responsenya
+            // menggunakan format json
+            return response()->json(
+                [
+                    'success' => true,
+                    'message' => 'Data berhasil diload',
+                    'data' => $data,
+                ],
+                200
+            );
+        } else {
+            // tampilkan responsenya
+            // menggunakan format json
+            return response()->json(
+                [
+                    'success' => false,
+                    'message' => 'Data ditemukan',
+                    'data' => $data,
+                ],
+                404
+            );
+        }
     }
 
     public function searchProduct(Request $request)
@@ -48,18 +85,26 @@ class ApiProductController extends Controller
         $keyword = $request->keyword;
 
         $data = Product::with(['merk'])
-        ->where('status', '1')
-        ->where('nama_product', 'like', '%' . $keyword . '%' )
-        ->orWhereRelation('merk','merk_product' , 'like', '%' . $keyword . '%' )
-        ->orderBy('nama_product', 'ASC')
-        ->get();
+            ->where('status', '1')
+            ->where('nama_product', 'like', '%' . $keyword . '%')
+            ->orWhereRelation(
+                'merk',
+                'merk_product',
+                'like',
+                '%' . $keyword . '%'
+            )
+            ->orderBy('nama_product', 'ASC')
+            ->get();
 
         // tampilkan responsenya
         // menggunakan format json
-        return response()->json([
-            'success' => true,
-            'message' => 'Data berhasil diload',
-            'data' => $data,
-        ], 200);
+        return response()->json(
+            [
+                'success' => true,
+                'message' => 'Data berhasil diload',
+                'data' => $data,
+            ],
+            200
+        );
     }
 }
