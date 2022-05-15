@@ -15,12 +15,13 @@ class ApiCheckoutController extends Controller
 
     public function postCheckout(Request $request)
     {
-        // ambil total harga yg ada di tabel keranjangs yg statusnya adalah 0
+        // ambil total harga yg ada di tabel keranjangs yg statusnya adalah 0 = keranjang, 1 = checkout 
         $getTotalHarga = DB::table('keranjangs')
                          ->select(DB::raw('SUM(totalharga) as totalharga '))
                          ->where('status', '0')
                          ->first();
-
+        // var_dump($getTotalHarga->totalharga);
+        // die;
         if( $getTotalHarga->totalharga == NULL) {
             return response()->json(
                 [
@@ -31,22 +32,9 @@ class ApiCheckoutController extends Controller
                 500
             );
             die;
-        }             
+        }
         
         $ongkir = 25000;
-
-        // if(!$getTotalHarga) {
-            
-        //     return response()->json(
-        //         [
-        //             'success' => false,
-        //             'message' => 'Keranjang Kosong!',
-        //             'data' => []
-        //         ],
-        //         500
-        //     );
-        // }
-        
 
         // Db transaction => akan mengupdate data apabila proses 1 berhasil dilakukan
         // jika proses pertama/kedua saat di proses ketiga gagal, maka proses 1 dan 2 dibatalkan
@@ -78,7 +66,7 @@ class ApiCheckoutController extends Controller
 
             // proses update tabel keranjangs pd field checkout_id dan status
 
-            // yg bakal diupdate adlh yg statusnya masih cart
+            // yg bakal diupdate adlh yg statusnya masih keranjang (0)
             $updateDetail = Keranjang::where('status','0')->update([
                 'checkout_id' => $checkout_id,
                 'status' => '1'
@@ -96,6 +84,7 @@ class ApiCheckoutController extends Controller
                 ],
                 200
             );
+            
         } catch (Exception $error) {
 
             // saat gagal, maka cancel smua transaction data
