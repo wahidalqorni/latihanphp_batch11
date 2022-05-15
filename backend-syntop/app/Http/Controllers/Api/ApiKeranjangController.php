@@ -17,7 +17,7 @@ class ApiKeranjangController extends Controller
                 ->join('products', 'products.id','keranjangs.product_id')
                 ->join('merks', 'merks.id', 'products.merk_id' )
                 ->select(DB::raw(
-                    'keranjangs.*, products.nama_product, products.harga as harga_satuan, merks.merk_product'
+                    'keranjangs.*, products.nama_product, products.gambar, products.harga as harga_satuan, merks.merk_product'
                 ))
                 ->where('keranjangs.status','0')
                 ->get();
@@ -34,7 +34,7 @@ class ApiKeranjangController extends Controller
             'message' => 'Data berhasil diload',
             'grandtotal' => $grandTotal->grandtotal,
             'data' => $data
-        ]);
+        ], 200);
     }
 
     public function postKeranjang(Request $request)

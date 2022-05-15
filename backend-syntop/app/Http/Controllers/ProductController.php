@@ -77,23 +77,20 @@ class ProductController extends Controller
         try {
             // ambil data produk yg dipilih berdasarkan id
             $product = Product::find($request->id);
-         
+
             // cek apakah user mengupload gambar atau tidak
             if ($request->file('gambar')) {
-
                 // cek apakah field gambar pd tabel products ada isinya atau tidak
                 // kalau ada
                 if ($product->gambar) {
                     // delete terlebih dahulu gambar lama
                     Storage::delete($product->gambar);
-                } 
+                }
 
                 // upload file yg baru
-                $pathGambar = $request
-                    ->file('gambar')
-                    ->store('product-images');
+                $pathGambar = $request->file('gambar')->store('product-images');
 
-                // proses update data products
+                // proses update data products dengan gambar
                 Product::where('id', $request->id)->update([
                     'merk_id' => $request->merk_id,
                     'nama_product' => $request->nama_product,
@@ -104,6 +101,7 @@ class ProductController extends Controller
                     'rekomendasi' => $request->rekomendasi,
                 ]);
             } else {
+                // proses update data products tanpa gambar
                 Product::where('id', $request->id)->update([
                     'merk_id' => $request->merk_id,
                     'nama_product' => $request->nama_product,
