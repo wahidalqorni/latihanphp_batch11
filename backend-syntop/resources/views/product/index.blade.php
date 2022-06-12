@@ -49,7 +49,7 @@
                                             <td>{{ $loop->index + 1 }}</td>
                                             <td>{{ $product->merk->merk_product }}</td>
                                             <td>{{ $product->nama_product }}</td>
-                                            <td>{{ $product->harga }}</td>
+                                            <td>{{ format_rupiah($product->harga) }}</td>
                                             <td>
                                                 {{-- <img src="{{ asset('storage/' . $product->gambar) }}" width="500"
                                                     srcset=""> --}}
@@ -59,7 +59,7 @@
                                             <td>
                                                 <?php echo htmlspecialchars_decode($product->spesifikasi) ?>
                                             </td>
-                                            <td>{{ $product->status == '1' ? 'Publish' : 'Unpublish' }}</td>
+                                            <td>{{ status_publish($product->status) }}</td>
                                             <td>{{ $product->rekomendasi == '1' ? 'Yes' : 'No' }}</td>
                                             <td>
                                                 <a href="{{ route('edit-product', $product->id) }}"

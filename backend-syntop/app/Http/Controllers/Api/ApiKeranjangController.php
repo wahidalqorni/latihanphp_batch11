@@ -22,6 +22,12 @@ class ApiKeranjangController extends Controller
                 ->where('keranjangs.status','0')
                 ->get();
 
+        if($data) {
+            $jumlahBarang = $data->count();
+        } else {
+            $jumlahBarang = 0;
+        }
+
         $grandTotal = DB::table('keranjangs')
                       ->select(DB::raw(
                           'SUM(totalharga) as grandtotal'
@@ -32,6 +38,7 @@ class ApiKeranjangController extends Controller
         return response()->json([
             'success' => true,
             'message' => 'Data berhasil diload',
+            'jumlahBarang' => $jumlahBarang,
             'grandtotal' => $grandTotal->grandtotal,
             'data' => $data
         ], 200);

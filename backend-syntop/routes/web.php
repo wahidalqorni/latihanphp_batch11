@@ -20,6 +20,7 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/send-email', [App\Http\Controllers\MailController::class, 'index']);
 
 // middleware auth utk membatasi akses routing tertentu harus melewati login terlebih dahulu
 Route::group(['middleware' => ['auth'] ], function(){
@@ -45,6 +46,10 @@ Route::group(['middleware' => ['auth'] ], function(){
     Route::get('/edit-product/{id}', [App\Http\Controllers\ProductController::class, 'edit'])->name('edit-product');
     Route::post('/update-product', [App\Http\Controllers\ProductController::class, 'update'])->name('update-product');
     Route::get('/delete-product/{id}', [App\Http\Controllers\ProductController::class, 'delete'])->name('delete-product');
+
+    Route::get('/pemesanan', [App\Http\Controllers\CheckoutController::class, 'index'])->name('pemesanan');
+    Route::get('/detail/{id}', [App\Http\Controllers\CheckoutController::class, 'detail'])->name('detail-pemesanan');
+    Route::post('/update-status-pemesanan', [App\Http\Controllers\CheckoutController::class, 'updateStatus'])->name('update-status-pemesanan');
 
 } );
 
