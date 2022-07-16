@@ -13,7 +13,7 @@ class ProductController extends Controller
     public function index()
     {
         $data = Product::all();
-        
+
         return view('product.index', compact('data'));
     }
 
@@ -34,6 +34,9 @@ class ProductController extends Controller
             'harga' => 'required',
             'rekomendasi' => 'required',
             'gambar' => 'required|image|file|max:2048', // 1mb = 1024kb, 2mb = 2048kb
+        ], [
+            'merk_id.required' => 'Merk harus diisi!',
+            'nama_product.required' => 'Nama Produk harus diisi!'
         ]);
 
         // dd($request->all());
